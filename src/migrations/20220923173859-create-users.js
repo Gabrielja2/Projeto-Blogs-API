@@ -22,8 +22,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       image: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
       },
     });
   },
