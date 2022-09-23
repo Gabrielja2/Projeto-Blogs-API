@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',
         references: {
@@ -26,12 +26,10 @@ module.exports = {
         }
       },
       published: {
-        type: Sequelize.DATETIME,
-        allowNull: false,
+        type: Sequelize.DATE
       },
       updated: {
-        type: Sequelize.DATETIME,
-        allowNull: false,
+        type: Sequelize.DATE     
       },
     });
   },
