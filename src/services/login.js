@@ -1,31 +1,21 @@
-// const { User } = require('../models');
-// const { generateToken } = require('../utils/JWT');
+const { User } = require('../models');
+const generateToken = require('../utils/JWT');
+const errorGenerate = require('../utils/errorGenerate');
 
-// const authenticate = async ({ email, password }) => {
-// if (!email || !password) {
-// const status = 400;
-// const message = 'Some required fields are missing';
+const authenticate = async ({ email, password }) => {
+  const user = await User.findOne({
+    attributes: ['displayName', 'email'],
+    where: { email, password },
+  });
 
-// throw { status, message };
-// }
+  if (!user) {
+    throw errorGenerate('Invalid fields', 400);
+  }
 
-// const user = await User.findOne({
-// attributes: ['id', 'email'],
-// where: { email, password },
-// });
+  const token = generateToken(user.dataValues);
+  return { token };
+}; 
 
-// if (!user) {
-// const status = 400;
-// const message = 'Invalid fields';
-
-// throw { status, message };
-// }
-
-// const token = generateToken(user.dataValues);
-
-// return { token };
-// };
-
-// module.exports = {
-// authenticate,
-// };
+module.exports = {
+  authenticate,
+};

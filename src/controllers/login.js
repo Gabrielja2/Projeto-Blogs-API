@@ -1,10 +1,15 @@
-// const loginService = require('../services/login');
+const loginService = require('../services/login');
 
-// const login = async (req, res) => {
-// const auth = await loginService.authenticate(req.body);
-// return res.send(auth);
-// };
+const authenticate = async (req, res, next) => {
+  try {
+    const token = await loginService.authenticate(req.body);
+    // console.log('token', token);
+     return res.status(200).json(token);
+  } catch (error) {
+    next(error);
+  }
+};
 
-// module.exports = {
-// login,
-// };
+module.exports = {
+  authenticate,
+};
