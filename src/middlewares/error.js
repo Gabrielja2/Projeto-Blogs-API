@@ -1,14 +1,8 @@
-// // const loginRouter = require('../router/login');
+const errorMiddleware = (error, _req, res, _next) => {
+  const status = error.status || 500;
+  const message = error.message || 'Erro inesperado. Por favor, tente mais tarde';
 
-// const error = (err, req, res, _next) => {
-//   const status = err.status || 500;
-//   const message = err.message || 'Erro inesperado. Por favor, tente mais tarde';
+  return res.status(status).json({ message });
+};
 
-//   return res.status(status).json({ message });
-// };
-
-// module.exports = error;
-
-// // loginRouter.post('/', body, {
-// // headers: { token: localStorage.getItem('token') },
-// // });
+module.exports = errorMiddleware;
