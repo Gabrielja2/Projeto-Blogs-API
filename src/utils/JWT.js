@@ -15,7 +15,6 @@ const generateToken = ({ displayName, email }) => {
     };
 
     const token = jwt.sign(payload, TOKEN_SECRET, jwtConfig);
-    console.log('token', token);
     return token;
 };
 

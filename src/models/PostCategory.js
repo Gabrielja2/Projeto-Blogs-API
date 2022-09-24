@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
       underscored: true,
       tableName: 'posts_categories',
+			timestamps: false,
     });
 
 
@@ -14,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
 		models.BlogPost.belongsToMany(models.Category, {
 			as: 'categories',
 			through: PostCategory,
-			foreignKey: 'postId', 
+			foreignKey: 'post_id', 
 			otherKey: 'category_id', 
 		});
 		models.Category.belongsToMany(models.BlogPost, {
 			as: 'blog_posts',
 			through: PostCategory,
 			foreignKey: 'category_id', 
-			otherKey: 'postId',
+			otherKey: 'post_id',
 		});
 	};
     
