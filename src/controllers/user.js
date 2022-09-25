@@ -19,11 +19,7 @@ const create = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    const user = await authenticateToken(token);
-
-  if (!user) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
+    await authenticateToken(token);
 
     const users = await userService.findAllUsers();    
     
