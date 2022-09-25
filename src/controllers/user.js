@@ -1,5 +1,6 @@
 const userService = require('../services/user');
 const { User } = require('../models');
+const { authenticateToken } = require('../utils/JWT');
 
 const create = async (req, res, next) => {
   try {
@@ -15,6 +16,24 @@ const create = async (req, res, next) => {
   }
 };
 
+const getUsers = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await authenticateToken(token);
+
+  if (!user) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+
+    const users = await userService.findAllUsers();    
+    
+    return res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
+  getUsers,
 };

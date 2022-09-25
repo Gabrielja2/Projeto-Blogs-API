@@ -1,7 +1,7 @@
 const { loginSchema } = require('../utils/schemas');
 const errorGenerate = require('../utils/errorGenerate');
 
-const authMiddleware = async (req, _res, next) => {
+const loginMiddleware = async (req, _res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     next(errorGenerate('Some required fields are missing', 400));
@@ -14,4 +14,4 @@ const authMiddleware = async (req, _res, next) => {
     next();  
 };
 
-module.exports = authMiddleware;
+module.exports = loginMiddleware;
