@@ -25,7 +25,22 @@ const findAllUsers = () => {
   }
 };
 
+const findById = (id) => {
+  try {
+    const user = User.findOne({
+      attributes: {
+        exclude: ['password'],
+      },
+      where: { id },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+}
+};
+
 module.exports = {
   createNewUser,
   findAllUsers,
+  findById,
 };

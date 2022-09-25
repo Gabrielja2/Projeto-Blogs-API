@@ -29,7 +29,29 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+    
+    const { id } = req.params;
+
+    const isValidId = await User.findOne({ where: { id } });
+
+    if (!isValidId) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+
+    const user = await userService.findById(id);
+
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   getUsers,
+  getUserById,
 };
