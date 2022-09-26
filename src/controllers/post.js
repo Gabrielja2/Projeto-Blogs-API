@@ -18,6 +18,20 @@ const create = async (req, res, next) => {
   }
 };
 
+const getPosts = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+
+    const posts = await postService.findPosts();
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
+  getPosts,
 };

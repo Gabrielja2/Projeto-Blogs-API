@@ -1,4 +1,4 @@
-const { BlogPost, Category, sequelize } = require('../models');
+const { User, BlogPost, Category, sequelize } = require('../models');
 const errorGenerate = require('../utils/errorGenerate');
 // const errorGenerate = require('../utils/errorGenerate');
 // const errorGenerate = require('../utils/errorGenerate');
@@ -24,6 +24,24 @@ const createBlogPost = async ({ title, content, categoryIds }) => {
   }
 };
 
+const findPosts = () => {
+  try {
+    const users = BlogPost.findAll({
+      attributes: {
+        exclude: ['user_id'],
+      },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   createBlogPost,
+  findPosts,
 };
