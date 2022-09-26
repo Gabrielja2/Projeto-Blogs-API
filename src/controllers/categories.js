@@ -19,6 +19,20 @@ const create = async (req, res, next) => {
   }
 };
 
+const getCategories = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+
+    const categories = await categoryService.findAllCategories();
+    
+    return res.status(200).json(categories);  
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
+  getCategories,
 };
