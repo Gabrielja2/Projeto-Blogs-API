@@ -1,7 +1,11 @@
 const categoryService = require('../services/categories');
+const { authenticateToken } = require('../utils/JWT');
 
 const create = async (req, res, next) => {
   try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+
     const { name } = req.body;  
 
     if (!name) {
