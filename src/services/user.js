@@ -1,5 +1,4 @@
 const { User } = require('../models');
-
 const { generateToken } = require('../utils/JWT');
 
 const createNewUser = async ({ displayName, email, password, image }) => {
