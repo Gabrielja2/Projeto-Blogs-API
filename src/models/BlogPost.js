@@ -1,11 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define('BlogPost', {
-    id: {type: DataTypes.INTEGER, primaryKey: true },
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.STRING,
-    published: DataTypes.STRING,
-    updated: DataTypes.STRING,
+    published: {
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updated: {
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
   },
     {
       underscored: true,
