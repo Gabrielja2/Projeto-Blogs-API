@@ -68,7 +68,7 @@ const deletePost = async (req, res, next) => {
     if (post === 0) {
       return res.status(404).json({ message: 'Post does not exist' });
     }
-    return res.status(204).json();
+    return res.status(204).end();
   } catch (error) {
     next(error);
   }
