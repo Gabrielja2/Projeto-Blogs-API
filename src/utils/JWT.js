@@ -12,7 +12,7 @@ const generateToken = ({ id, displayName, email }) => {
     };
     
     const jwtConfig = {
-      expiresIn: '55m',
+      expiresIn: '7d',
       algorithm: 'HS256',
     };
 
