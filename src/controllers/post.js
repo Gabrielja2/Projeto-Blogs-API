@@ -55,8 +55,21 @@ const getPostById = async (req, res, next) => {
   }
 };
 
+const getSeachPosts = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+    const { q } = req.query;
+    const posts = await postService.findBySeach(q);
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   getPosts,
   getPostById,
+  getSeachPosts,
 };

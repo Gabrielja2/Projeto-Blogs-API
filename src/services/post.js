@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User, BlogPost, Category, sequelize } = require('../models');
 const errorGenerate = require('../utils/errorGenerate');
 
@@ -55,8 +56,29 @@ const findPostById = (id) => {
   }
 };
 
+const findBySeach = async (searchq) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.substring]: `${searchq}` } },
+        { content: { [Op.substring]: `${searchq}` } },
+      ],
+    },
+    attributes: {
+      exclude: ['user_id'],
+    },
+    include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   createBlogPost,
   findPosts,
   findPostById,
+  findBySeach,
 };
