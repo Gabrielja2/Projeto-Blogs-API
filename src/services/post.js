@@ -57,14 +57,13 @@ const findPostById = (id) => {
 };
 
 const deletePost = async (id, userId) => {
-  const post = await BlogPost.findOne({ where: userId });
+  const post = await BlogPost.findOne({ where: { id } });
   console.log('post', post);
-
-  if (post.dataValues.id !== userId) {
-    throw errorGenerate('Unauthorized user', 401);
+  if (post === null) {
+    throw errorGenerate('Post does not exist', 404);
   }
   
-  return BlogPost.destroy({ where: { id } });  
+   return BlogPost.destroy({ where: { id, userId } });
 };
 
 const findBySeach = async (searchq) => {

@@ -58,15 +58,15 @@ const getPostById = async (req, res, next) => {
 const deletePost = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    await authenticateToken(token);
     
-    const { id } = req.params;
     const userId = await authenticateToken(token); 
+    console.log('userid', userId);
+    const { id } = req.params;
  
     const post = await postService.deletePost(id, userId.id);
 
     if (post === 0) {
-      return res.status(404).json({ message: 'Post does not exist' });
+      return res.status(401).json({ message: 'Unauthorized user' });
     }
     return res.status(204).end();
   } catch (error) {
