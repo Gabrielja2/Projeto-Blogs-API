@@ -55,6 +55,25 @@ const getPostById = async (req, res, next) => {
   }
 };
 
+const deletePost = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+    
+    const { id } = req.params;
+    const userId = await authenticateToken(token); 
+ 
+    const post = await postService.deletePost(id, userId.id);
+
+    if (post === 0) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    return res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getSeachPosts = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
@@ -71,5 +90,6 @@ module.exports = {
   create,
   getPosts,
   getPostById,
+  deletePost,
   getSeachPosts,
 };

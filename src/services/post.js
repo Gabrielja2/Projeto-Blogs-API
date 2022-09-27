@@ -56,6 +56,17 @@ const findPostById = (id) => {
   }
 };
 
+const deletePost = async (id, userId) => {
+  const post = await BlogPost.findOne({ where: userId });
+  console.log('post', post);
+
+  if (post.dataValues.id !== userId) {
+    throw errorGenerate('Unauthorized user', 401);
+  }
+  
+  return BlogPost.destroy({ where: { id } });  
+};
+
 const findBySeach = async (searchq) => {
   const posts = await BlogPost.findAll({
     where: {
@@ -80,5 +91,6 @@ module.exports = {
   createBlogPost,
   findPosts,
   findPostById,
+  deletePost,
   findBySeach,
 };
