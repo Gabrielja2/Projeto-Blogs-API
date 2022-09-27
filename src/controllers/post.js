@@ -55,6 +55,31 @@ const getPostById = async (req, res, next) => {
   }
 };
 
+const editPost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const token = req.headers.authorization;
+    const user = await authenticateToken(token);
+
+    const editedPost = await postService.findPostEdited({
+      id, userId: user.id, body: req.body,
+    });
+
+    if (editedPost === undefined) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    if (!title || !content) {
+      return res.status(400).json({ message: 'Some required fields are missing' });
+    }
+    
+    return res.status(200).json(editedPost);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deletePost = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
@@ -90,6 +115,7 @@ module.exports = {
   create,
   getPosts,
   getPostById,
+  editPost,
   deletePost,
   getSeachPosts,
 };

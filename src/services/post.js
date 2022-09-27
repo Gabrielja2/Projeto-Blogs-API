@@ -56,6 +56,23 @@ const findPostById = (id) => {
   }
 };
 
+const findPostEdited = async ({ id, userId, body }) => {
+  try {  
+    const postToEdit = await findPostById(id);
+    
+    if (postToEdit.dataValues.id !== userId) {
+      throw errorGenerate('Unauthorized user', 401);
+    }
+      
+    await BlogPost.update(body, { where: { id } });
+    const blogPostEdited = await findPostById(id);
+
+    return blogPostEdited;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deletePost = async (id, userId) => {
   const post = await BlogPost.findOne({ where: { id } });
   console.log('post', post);
@@ -90,6 +107,7 @@ module.exports = {
   createBlogPost,
   findPosts,
   findPostById,
+  findPostEdited,
   deletePost,
   findBySeach,
 };
