@@ -1,5 +1,7 @@
 const postService = require('../services/post');
 const { authenticateToken } = require('../utils/JWT');
+const { BlogPost } = require('../models');
+const errorGenerate = require('../utils/errorGenerate');
 
 const create = async (req, res, next) => {
   try {
@@ -31,7 +33,30 @@ const getPosts = async (req, res, next) => {
   }
 };
 
+const getPostById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const token = req.headers.authorization;
+    await authenticateToken(token);
+
+    const isValidBlogPostId = await BlogPost.findAndCountAll({
+      where: { id },
+    });
+
+    if (isValidBlogPostId.count !== 1) {
+      throw errorGenerate('Post does not exist', 404);
+    }
+
+    const post = await postService.findPostById(id);
+
+    return res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   getPosts,
+  getPostById,
 };

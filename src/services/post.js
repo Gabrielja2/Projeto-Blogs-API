@@ -24,9 +24,9 @@ const createBlogPost = async ({ title, content, categoryIds }) => {
   }
 };
 
-const findPosts = () => {
+const findPosts = async () => {
   try {
-    const users = BlogPost.findAll({
+    const posts = BlogPost.findAll({
       attributes: {
         exclude: ['user_id'],
       },
@@ -35,7 +35,25 @@ const findPosts = () => {
         { model: Category, as: 'categories', through: { attributes: [] } },
       ],
     });
-    return users;
+    return posts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findPostById = (id) => {
+  try {
+    const post = BlogPost.findOne({
+      where: { id },
+      attributes: {
+        exclude: ['user_id'],
+      },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return post;
   } catch (error) {
     console.log(error);
   }
@@ -44,4 +62,5 @@ const findPosts = () => {
 module.exports = {
   createBlogPost,
   findPosts,
+  findPostById,
 };
