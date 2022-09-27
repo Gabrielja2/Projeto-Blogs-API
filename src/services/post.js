@@ -1,14 +1,10 @@
 const { User, BlogPost, Category, sequelize } = require('../models');
 const errorGenerate = require('../utils/errorGenerate');
-// const errorGenerate = require('../utils/errorGenerate');
-// const errorGenerate = require('../utils/errorGenerate');
 
 const createBlogPost = async ({ title, content, categoryIds }) => {
   try {
     const result = await sequelize.transaction(async (t) => {
-      const newPost = await BlogPost.create(
-        { title, content }, { transaction: t },      
-        );
+      const newPost = await BlogPost.create({ title, content }, { transaction: t });
         const categoryExists = await Category.findAndCountAll({
           where: { id: categoryIds },
         });
