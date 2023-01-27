@@ -44,7 +44,7 @@
     
   - ✨ **Dica:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
 
-  </br>
+  <br />
 </details>
 
 
@@ -60,7 +60,7 @@
     3. Suba os imagens do servidor node e do banco de do docker-compose com o comando:
     *`docker-compose up -d --build
     
-    </br>
+    <br />
 </details>
 
 <details>
@@ -117,3 +117,22 @@
 
 
     *Os dados acima são fictícios, e estão aqui apenas como exemplo*
+    
+    #### Dicas de scripts prontos
+
+    - Deleta o banco de dados:
+    ```json
+    "drop": "npx sequelize-cli db:drop"
+    ```
+
+    - Cria o banco e gera as tabelas:
+    ```json
+    "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate"
+    ```
+
+    - Insere dados/Popula a tabela:
+    ```json
+    "seed": "npx sequelize-cli db:seed:all"
+    ```
+    <br />
+ </details>   
