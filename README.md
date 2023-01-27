@@ -81,7 +81,39 @@
 
 </details>
 
-<strong>🎲 Entidades do projeto</strong><br />
-  - USER
-  - ORDER
-  - PRODUCT
+<details>
+  <summary  id="diagrama"><strong>🎲 Entidades</strong></summary>
+
+  #### Formato das entidades
+
+  O seu projeto deverá usar o `ORM Sequelize` para criar e atualizar o seu banco de dados. 
+
+  Os primeiros requisitos do projeto devem orientar a produção de suas migrations para gerar:
+
+  - Uma tabela chamada **users**, contendo dados com a seguinte estrutura:
+
+    | id  | display_name    | email           | password | image                                                                                   |
+    | --- | --------------- | --------------- | -------- | --------------------------------------------------------------------------------------- |
+    | 1   | Brett Wiltshire | brett@email.com // tem quer ser único | 123456   | http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png |
+
+  - Uma tabela chamada **categories**, contendo dados com a seguinte estrutura:
+
+    | id  | name |
+    | --- | ---- |
+    | 18  | News |
+
+  - Uma tabela chamada **blog_posts**, contendo dados com a seguinte estrutura:
+
+    | id  | title                      | content                                                | user_id | published                | updated                  |
+    | --- | -------------------------- | ------------------------------------------------------ | ------- | ------------------------ | ------------------------ |
+    | 21  | Latest updates, August 1st | The whole text for the blog post goes here in this key | 14  // Chave estrangeira, referenciando o id de `users`    | 2011-08-01T19:58:00.000Z | 2011-08-01T19:58:51.947Z |
+
+
+  - Uma tabela chamada **PostCategories**, contendo uma **chave primária composta** utilizando os dois atributos da estrutura:
+
+    | post_id | category_id |
+    | ------- | ----------- |
+    | 50 // Chave primária e estrangeira, referenciando o id de `BlogPosts`     | 20  // Chave primária e estrangeira, referenciando o id de `Categories`     |
+
+
+    *Os dados acima são fictícios, e estão aqui apenas como exemplo*
