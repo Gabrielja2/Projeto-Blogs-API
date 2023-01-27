@@ -44,7 +44,7 @@
     
   - ✨ **Dica:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
 
-  <br>
+  </br>
 </details>
 
 
@@ -60,6 +60,25 @@
     3. Suba os imagens do servidor node e do banco de do docker-compose com o comando:
     *`docker-compose up -d --build
     
+    </br>
+</details>
+
+<details>
+  <summary><strong>👀 REST</strong></summary>
+
+  #### Status HTTP
+
+  Tenha em mente que todas as "respostas" devem respeitar os [status do protocolo HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status) com   base no que o REST prega.
+
+  Alguns exemplos:
+  - Requisições que precisam de token mas não o receberam devem retornar um código de `status 401`;
+
+  - Requisições que não seguem o formato pedido pelo servidor devem retornar um código de `status 400`;
+
+  - Um problema inesperado no servidor deve retornar um código de `status 500`;
+
+  - Um acesso ao criar um recurso, no nosso caso usuário ou post, deve retornar um código de `status 201`.
+
 </details>
 
 <strong>🎲 Entidades do projeto</strong><br />
