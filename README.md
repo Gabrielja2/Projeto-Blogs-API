@@ -58,7 +58,7 @@
     *`npm install`
 
     3. Suba os imagens do servidor node e do banco de do docker-compose com o comando:
-    *`docker-compose up -d`
+    *`docker-compose up -d --build
     
 </details>
 
